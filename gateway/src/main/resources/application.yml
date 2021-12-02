@@ -17,6 +17,11 @@ management:
   endpoint:
     health:
       show-details: always
+  health:
+    ratelimiters:
+      enabled: true
+    circuitbreakers:
+      enabled: true
 ---
 spring:
   cloud:
@@ -24,6 +29,50 @@ spring:
       discovery:
         locator:
           enabled: true
+          lower-case-service-id: true
   redis:
     host: localhost
     port: 6379
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/payment/**
+          filters:
+            - RewritePath=/api/payment/(?<path>.*), $\{path}
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 20
+                redis-rate-limiter.burstCapacity: 40
+            - name: CircuitBreaker
+              args:
+                name: backendB
+                fallbackUri: forward:/defaultFallback
+resilience4j.circuitbreaker:
+  configs:
+    custom:
+      registerHealthIndicator: true
+      slidingWindowType: TIME_BASED
+      slidingWindowSize: 10
+      minimumNumberOfCalls: 5
+      permittedNumberOfCallsInHalfOpenState: 3
+      automaticTransitionFromOpenToHalfOpenEnabled: true
+      waitDurationInOpenState: 2s
+      failureRateThreshold: 5
+      eventConsumerBufferSize: 10
+      slowCallDurationThreshold: 200ms
+      slowCallRateThreshold: 30
+  instances:
+    backendA:
+      baseConfig: custom
+    backendB:
+      slidingWindowSize: 10
+      minimumNumberOfCalls: 10
+      permittedNumberOfCallsInHalfOpenState: 3
+      waitDurationInOpenState: 1s
+      failureRateThreshold: 50
+      eventConsumerBufferSize: 10
