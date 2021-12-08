@@ -17,6 +17,11 @@ management:
   endpoint:
     health:
       show-details: always
+  health:
+    ratelimiters:
+      enabled: true
+    circuitbreakers:
+      enabled: true
 ---
 spring:
   cloud:
@@ -38,7 +43,7 @@ spring:
           predicates:
             - Path=/payment/**
           filters:
-            - RewritePath=/api(?<path>/?.*), $\{path}
+            - RewritePath=/api/payment/(?<path>.*), $\{path}
             - name: RequestRateLimiter
               args:
                 redis-rate-limiter.replenishRate: 20
@@ -48,16 +53,26 @@ spring:
                 name: backendB
                 fallbackUri: forward:/defaultFallback
 resilience4j.circuitbreaker:
+  configs:
+    custom:
+      registerHealthIndicator: true
+      slidingWindowType: TIME_BASED
+      slidingWindowSize: 10
+      minimumNumberOfCalls: 5
+      permittedNumberOfCallsInHalfOpenState: 3
+      automaticTransitionFromOpenToHalfOpenEnabled: true
+      waitDurationInOpenState: 2s
+      failureRateThreshold: 5
+      eventConsumerBufferSize: 10
+      slowCallDurationThreshold: 200ms
+      slowCallRateThreshold: 30
   instances:
     backendA:
-      registerHealthIndicator: true
-      slidingWindowSize: 100
+      baseConfig: custom
     backendB:
-      registerHealthIndicator: true
       slidingWindowSize: 10
+      minimumNumberOfCalls: 10
       permittedNumberOfCallsInHalfOpenState: 3
-      slidingWindowType: TIME_BASED
-      minimumNumberOfCalls: 20
-      waitDurationInOpenState: 50s
+      waitDurationInOpenState: 1s
       failureRateThreshold: 50
       eventConsumerBufferSize: 10
