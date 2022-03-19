@@ -9,6 +9,24 @@ server:
 spring:
   application:
     name: order-service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/sample
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  cloud:
+    stream:
+      bindings:
+        supplier-out-0:
+          destination: order-created
+        consumer-in-0:
+          destination: order-update
+      function:
+        definition: supplier;consumer
 management:
   endpoints:
     web:

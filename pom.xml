@@ -8,6 +8,7 @@
         <module>gateway</module>
         <module>discovery</module>
         <module>order</module>
+        <module>common</module>
     </modules>
 
     <groupId>ir.springboot</groupId>
