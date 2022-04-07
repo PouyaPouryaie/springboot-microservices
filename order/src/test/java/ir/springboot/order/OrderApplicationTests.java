@@ -1,5 +1,6 @@
 package ir.springboot.order;
 
+import ir.springboot.order.entity.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

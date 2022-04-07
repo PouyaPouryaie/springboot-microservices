@@ -10,6 +10,6 @@ public class OrchestratorRequestDto {
     UUID orderId;
     Long userId;
     Long productId;
-    Long amount;
+    Double amount;
     Long volume;
 }

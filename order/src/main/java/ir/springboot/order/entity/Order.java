@@ -1,16 +1,20 @@
-package ir.springboot.common.dto;
+package ir.springboot.order.entity;
 
 import ir.springboot.common.enums.OrderStatus;
 import lombok.*;
 
 import java.util.UUID;
 
-@Data
-public class OrderResponseDto {
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+public class Order {
 
     private UUID orderId;
     private Long userId;
     private Long productId;
-    private Double amount;
+    private Double price;
     private OrderStatus status;
 }

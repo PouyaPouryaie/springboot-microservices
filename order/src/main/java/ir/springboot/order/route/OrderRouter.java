@@ -1,4 +1,4 @@
-package ir.springboot.order;
+package ir.springboot.order.route;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
@@ -23,6 +23,7 @@ public class OrderRouter {
                 route(GET("/hello")
                         .and(accept(MediaType.APPLICATION_JSON)), orderHandler::hello)
                 .andRoute(GET("/find/{id}")
-                        .and(accept(MediaType.APPLICATION_JSON)), orderHandler::find));
+                        .and(accept(MediaType.APPLICATION_JSON)), orderHandler::find)
+                .andRoute(POST("/create").and(accept(MediaType.APPLICATION_JSON)), orderHandler::createOrder));
     }
 }
