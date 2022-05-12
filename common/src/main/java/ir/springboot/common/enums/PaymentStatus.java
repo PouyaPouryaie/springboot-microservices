@@ -1,6 +1,6 @@
 package ir.springboot.common.enums;
 
 public enum PaymentStatus {
-    APPROVED,
-    REJECTED;
+    PAYMENT_APPROVED,
+    PAYMENT_REJECTED;
 }

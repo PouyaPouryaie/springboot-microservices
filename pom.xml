@@ -10,6 +10,7 @@
         <module>order</module>
         <module>common</module>
         <module>inventory</module>
+        <module>payment</module>
     </modules>
 
     <groupId>ir.springboot</groupId>

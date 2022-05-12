@@ -12,7 +12,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @ExtendWith(SpringExtension.class)
 @WebFluxTest
-@ComponentScan("ir.micro.order")
+@ComponentScan("ir.springboot.order")
 class OrderApplicationTests {
 
 	@Autowired

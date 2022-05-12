@@ -8,8 +8,8 @@ import java.util.UUID;
 @Data
 public class PaymentResponseDto {
 
-    UUID orderId;
-    Long userId;
-    Long amount;
-    PaymentStatus status;
+    private Integer userId;
+    private UUID orderId;
+    private Double amount;
+    private PaymentStatus status;
 }

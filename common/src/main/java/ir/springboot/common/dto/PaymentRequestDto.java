@@ -7,7 +7,7 @@ import java.util.UUID;
 @Data
 public class PaymentRequestDto {
 
-    UUID orderId;
-    Long userId;
-    Long amount;
+    private UUID orderId;
+    private Integer userId;
+    private Double amount;
 }
