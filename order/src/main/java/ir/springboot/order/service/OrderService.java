@@ -41,12 +41,12 @@ public class OrderService {
         return Mono.just(order);
     }
 
-//    public Mono<List<OrderResponseDto>> getAll(){
-//        return this.orderRepository.findAll()
-//                .stream()
-//                .map(this::entityToDto)
-//                .collect(Collectors.toList());
-//    }
+    public Mono<List<OrderResponseDto>> getAll(){
+        return Mono.just(this.orderRepository.findAll()
+                .stream()
+                .map(this::entityToDto)
+                .collect(Collectors.toList()));
+    }
 
     private Order dtoToEntity(final OrderRequestDto dto){
         Order purchaseOrder = new Order();
