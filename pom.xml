@@ -9,6 +9,7 @@
         <module>discovery</module>
         <module>order</module>
         <module>common</module>
+        <module>inventory</module>
     </modules>
 
     <groupId>ir.springboot</groupId>

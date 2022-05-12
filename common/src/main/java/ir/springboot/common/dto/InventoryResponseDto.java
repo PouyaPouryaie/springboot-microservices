@@ -9,7 +9,7 @@ import java.util.UUID;
 public class InventoryResponseDto {
 
     UUID orderId;
-    Long productId;
-    Long volume;
+    Integer productId;
+    Integer userId;
     InventoryStatus status;
 }

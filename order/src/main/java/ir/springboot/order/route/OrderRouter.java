@@ -24,6 +24,7 @@ public class OrderRouter {
                         .and(accept(MediaType.APPLICATION_JSON)), orderHandler::hello)
                 .andRoute(GET("/find/{id}")
                         .and(accept(MediaType.APPLICATION_JSON)), orderHandler::find)
-                .andRoute(POST("/create").and(accept(MediaType.APPLICATION_JSON)), orderHandler::createOrder));
+                .andRoute(POST("/create")
+                        .and(accept(MediaType.APPLICATION_JSON)), orderHandler::createOrder));
     }
 }
