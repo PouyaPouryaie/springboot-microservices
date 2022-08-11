@@ -8,8 +8,8 @@ import java.util.UUID;
 public class OrchestratorRequestDto {
 
     UUID orderId;
-    Long userId;
-    Long productId;
+    Integer userId;
+    Integer productId;
     Double amount;
     Long volume;
 }

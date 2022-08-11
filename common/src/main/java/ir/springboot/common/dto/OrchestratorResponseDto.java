@@ -9,9 +9,9 @@ import java.util.UUID;
 public class OrchestratorResponseDto {
 
     UUID orderId;
-    Long userId;
-    Long productId;
-    Long amount;
+    Integer userId;
+    Integer productId;
+    Double amount;
     Long volume;
     OrderStatus status;
 }
